@@ -10,13 +10,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
+import java.sql.*;
+
 
 public class TerminHinzufuegenGUI extends JFrame implements ActionListener{
-	
+	String titel;
+	String beschreibung;
+	String datum;
+	int startZeit;
+	int endZeit;
+	String infos;
+	//Frames
 	JFrame frameStartbildschirm = null;
-	JFrame frameTermininformation = null;
-	JFrame frameTerminhinzufuegen = null;
-	JFrame frameTermineditieren = null;
 	
 	//JPanel
 	JPanel centerPanel = new JPanel();
@@ -48,13 +53,14 @@ public class TerminHinzufuegenGUI extends JFrame implements ActionListener{
 	JButton buttonHinzufuegen = new JButton("Hinzufügen");
 	
 	public TerminHinzufuegenGUI() {
+		//layout
 		setLayout(new BorderLayout());
-		
+		//"grund" Panel
 		add((centerPanel), BorderLayout.CENTER);
 		add((southPanel), BorderLayout.SOUTH);
 		
+		//center Panel
 		centerPanel.setLayout(new GridLayout(6, 2));
-		
 		//Titel
 		centerPanel.add(labelTitel);
 		centerPanel.add(textTitel);
@@ -74,12 +80,13 @@ public class TerminHinzufuegenGUI extends JFrame implements ActionListener{
 		centerPanel.add(labelInfos);
 		centerPanel.add(textInfos);
 
+		//southPanel
 		southPanel.setLayout(new GridLayout(1, 2));
-		
+		//Buttons
 		southPanel.add(buttonAbbrechen);
 		southPanel.add(buttonHinzufuegen);
 		
-		//Buttons
+		//Buttons aktivieren
 		buttonAbbrechen.addActionListener(this);
 		buttonHinzufuegen.addActionListener(this);
 		
@@ -90,42 +97,14 @@ public class TerminHinzufuegenGUI extends JFrame implements ActionListener{
 		comboBoxEndzeit.setSelectedIndex(20);
 		comboBoxEndzeit.addActionListener(this);
 		
-		
+		//View allgemein
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(200, 300);
+		setSize(250, 350);
 		setVisible(true);
 		setTitle("Termin hinzufügen");
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		TerminHinzufuegenGUI gui = new TerminHinzufuegenGUI();
-		
-		StartbildschirmGUI startbildschirm = new StartbildschirmGUI();
-		TerminHinzufuegenGUI terminhinzufuegen = new TerminHinzufuegenGUI();
-		TermininformationGUI termininformation = new TermininformationGUI();
-		TerminEditierenGUI termineditieren = new TerminEditierenGUI();
-		
-		terminhinzufuegen.setframeStartbildschirm(startbildschirm);
-		
-		terminhinzufuegen.setframeStartbildschirm(startbildschirm);
-		
-		terminhinzufuegen.setVisible(true);
-	}
-	
-	public void setframeTermininformation(JFrame frameTermininformation) {
-        this.frameTermininformation = frameTermininformation;
-    }
-	
-	public void setframeTerminhinzufuegen(JFrame frameTerminhinzufuegen) {
-        this.frameTerminhinzufuegen = frameTerminhinzufuegen;
-    }
-	
-	public void setframeTermineditieren(JFrame frameTermineditieren) {
-        this.frameTermineditieren = frameTermineditieren;
-    }
-	
+	//view wechsel zum startbildschirm
 	public void setframeStartbildschirm(JFrame frameStartbildschirm) {
         this.frameStartbildschirm = frameStartbildschirm;
     }
@@ -134,13 +113,32 @@ public class TerminHinzufuegenGUI extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//wenn Button -> view wechsel zu startbildschirm
 		if (e.getSource() == buttonAbbrechen) {
 			frameStartbildschirm.setVisible(true);
 			setVisible(false);
 		}
+		//wenn Button -> view wechsel zu startbildschirm
 		if (e.getSource() == buttonHinzufuegen) {
+			titel = textTitel.getText();
+			beschreibung = textBeschreibung.getText();
+			datum = textDatum.getText();
+			startZeit = comboBoxStartZeit.getSelectedIndex();
+			endZeit = comboBoxEndzeit.getSelectedIndex();
+			infos = textInfos.getText();
+			
+			System.out.println(titel + " " + beschreibung + " " + datum + " " + startZeit + " " + endZeit + " " + infos );
 			frameStartbildschirm.setVisible(true);
 			setVisible(false);
+			
+			textTitel.setText("");
+			textBeschreibung.setText("");
+			textDatum.setText("");
+			comboBoxStartZeit.setSelectedIndex(17);
+			comboBoxEndzeit.setSelectedIndex(20);
+			textInfos.setText("");
+			
+			
 		}
 		
 	}

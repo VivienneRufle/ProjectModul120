@@ -10,11 +10,16 @@ import javax.swing.JPanel;
 
 
 public class TermininformationGUI extends JFrame implements ActionListener{
+	int zusagen;
+	String zusageString;
+	int absage;
+	String absageString;
+	
+	//frames
 	JFrame frameStartbildschirm = null;
-	JFrame frameTermininformation = null;
-	JFrame frameTerminhinzufuegen = null;
 	JFrame frameTermineditieren = null;
 	
+	//Panel
 	JPanel centerPanel = new JPanel();
 	JPanel southPanel = new JPanel();
 	JPanel southPanelup = new JPanel();
@@ -36,10 +41,10 @@ public class TermininformationGUI extends JFrame implements ActionListener{
 	JLabel labelEndzeit = new JLabel("HH:MM");
 	//Zusage
 	JLabel labelZusagenText = new JLabel("Zusagen:");
-	JLabel labelZusgae = new JLabel("X Zusagen     | XX%");
+	JLabel labelZusgae = new JLabel("2");
 	//Absage
 	JLabel labelAbsagenText = new JLabel("Absagen:");
-	JLabel labelAbsage = new JLabel("X Absagen     | XX%");
+	JLabel labelAbsage = new JLabel("1");
 	//Infos
 	JLabel labelInfos = new JLabel("Info Info Info");
 	//Button
@@ -51,27 +56,37 @@ public class TermininformationGUI extends JFrame implements ActionListener{
 	
 	
 	public TermininformationGUI() {
+		//layout
 		setLayout(new BorderLayout());
 		
+		//"grund" layout
 		add((centerPanel), BorderLayout.CENTER);
 		add((southPanel), BorderLayout.SOUTH);
 		
 		//Center Panel Labels setzen
 		centerPanel.setLayout(new GridLayout(8, 2));
+		//titel
 		centerPanel.add(labelTitel);
 		centerPanel.add(labelTitelLeer);
+		//beschreibung
 		centerPanel.add(labelBeschreibung);
 		centerPanel.add(labelBeschreibungLeer);
+		//datum
 		centerPanel.add(labelDatumText);
 		centerPanel.add(labelDatum);
+		//start zeit
 		centerPanel.add(labelStartZeitText);
 		centerPanel.add(labelStartZeit);
+		//endzeit
 		centerPanel.add(labelEndzeitText);
 		centerPanel.add(labelEndzeit);
+		//zusagen
 		centerPanel.add(labelZusagenText);
 		centerPanel.add(labelZusgae);
+		//absagen
 		centerPanel.add(labelAbsagenText);
 		centerPanel.add(labelAbsage);
+		//infos
 		centerPanel.add(labelInfos);
 
 		//SouthPanel Panel setzen
@@ -97,63 +112,54 @@ public class TermininformationGUI extends JFrame implements ActionListener{
 		buttonZusagen.addActionListener(this);
 		buttonAbsagen.addActionListener(this);
 		
-		
+		//view allgemein
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(200, 300);
+		setSize(250, 350);
 		setVisible(true);
 		setTitle("Termininformation");
 	}
-	
-	public static void main(String[] args) {
-		TermininformationGUI gui = new TermininformationGUI();
 		
-		StartbildschirmGUI startbildschirm = new StartbildschirmGUI();
-		TerminHinzufuegenGUI terminhinzufuegen = new TerminHinzufuegenGUI();
-		TermininformationGUI termininformation = new TermininformationGUI();
-		TerminEditierenGUI termineditieren = new TerminEditierenGUI();
-		
-		termininformation.setframeStartbildschirm(startbildschirm);
-		
-		termininformation.setframeTermineditieren(termineditieren);
-		
-		termininformation.setVisible(true);
-	}
-	
-	public void setframeTermininformation(JFrame frameTermininformation) {
-        this.frameTermininformation = frameTermininformation;
-    }
-	
-	public void setframeTerminhinzufuegen(JFrame frameTerminhinzufuegen) {
-        this.frameTerminhinzufuegen = frameTerminhinzufuegen;
-    }
-	
+	//view wechsel zu termineditieren
 	public void setframeTermineditieren(JFrame frameTermineditieren) {
         this.frameTermineditieren = frameTermineditieren;
     }
-	
+	//view wechsel zu startbildschirm
 	public void setframeStartbildschirm(JFrame frameStartbildschirm) {
         this.frameStartbildschirm = frameStartbildschirm;
     }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		//wenn button -> view wechsel zu startbildschirm
 		if (e.getSource() == buttonzuruck) {
 			frameStartbildschirm.setVisible(true);
 			setVisible(false);
-			System.out.println("zurück auf Startbildschirm");
 		}
-		
+		//wenn Button -> view wechsel zu startbildschirm
 		if (e.getSource() == buttonloschen) {
 			frameStartbildschirm.setVisible(true);
 			setVisible(false);
-			System.out.println("löschen auf Startbildschirm");
 		}
-		
+		//wenn button ->vie wechsel zu termineditieren
 		if (e.getSource() == buttoneditieren) {
 			frameTermineditieren.setVisible(true);
 			setVisible(false);
-			System.out.println("editieren auf Termin editieren");
+		}
+		
+		//wenn button -> zu termin zusagen
+		if (e.getSource() == buttonZusagen) {
+			zusagen = Integer.parseInt(labelZusgae.getText());
+			zusagen++;
+			zusageString = Integer.toString(zusagen);
+			labelZusgae.setText(zusageString);
+		}
+		
+		//wenn button -> termin absagen
+		if (e.getSource() == buttonAbsagen) {
+			absage = Integer.parseInt(labelAbsage.getText());
+			absage++;
+			absageString = Integer.toString(absage);
+			labelAbsage.setText(absageString);
 		}
 	}
 }

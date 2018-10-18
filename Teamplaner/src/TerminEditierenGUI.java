@@ -12,11 +12,8 @@ import javax.swing.JLabel;
 
 
 public class TerminEditierenGUI extends JFrame implements ActionListener{
-		
-		JFrame frameStartbildschirm = null;
+		//Frames
 		JFrame frameTermininformation = null;
-		JFrame frameTerminhinzufuegen = null;
-		JFrame frameTermineditieren = null;
 		
 		//JPanel
 		JPanel centerPanel = new JPanel();
@@ -48,11 +45,13 @@ public class TerminEditierenGUI extends JFrame implements ActionListener{
 		JButton buttonEditieren = new JButton("Editieren");
 	
 	public TerminEditierenGUI() {
-setLayout(new BorderLayout());
-		
+		//Layout
+		setLayout(new BorderLayout());
+		//"grund" Panel
 		add((centerPanel), BorderLayout.CENTER);
 		add((southPanel), BorderLayout.SOUTH);
 		
+		//center Panel
 		centerPanel.setLayout(new GridLayout(6, 2));
 		
 		//Titel
@@ -73,11 +72,13 @@ setLayout(new BorderLayout());
 		//Infos
 		centerPanel.add(labelInfos);
 		centerPanel.add(textInfos);
-
+		
+		//south Panel
 		southPanel.setLayout(new GridLayout(1, 2));
 		
 		southPanel.add(buttonAbbrechen);
 		southPanel.add(buttonEditieren);
+		
 		
 		//Buttons
 		buttonAbbrechen.addActionListener(this);
@@ -90,54 +91,28 @@ setLayout(new BorderLayout());
 		comboBoxEndzeit.setSelectedIndex(20);
 		comboBoxEndzeit.addActionListener(this);
 		
-		
+		//View allgemein
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(200, 300);
+		setSize(250, 350);
 		setVisible(true);
 		setTitle("Termin hinzufügen");
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		TerminEditierenGUI gui = new TerminEditierenGUI();
-		
-		StartbildschirmGUI startbildschirm = new StartbildschirmGUI();
-		TerminHinzufuegenGUI terminhinzufuegen = new TerminHinzufuegenGUI();
-		TermininformationGUI termininformation = new TermininformationGUI();
-		TerminEditierenGUI termineditieren = new TerminEditierenGUI();
-		
-		termineditieren.setframeTermininformation(termininformation);
-		
-		termineditieren.setframeTermininformation(termininformation);
-		
-		termineditieren.setVisible(true);
-	}
-	
+	//View wechsel zu termininfo
 	public void setframeTermininformation(JFrame frameTermininformation) {
         this.frameTermininformation = frameTermininformation;
     }
 	
-	public void setframeTerminhinzufuegen(JFrame frameTerminhinzufuegen) {
-        this.frameTerminhinzufuegen = frameTerminhinzufuegen;
-    }
-	
-	public void setframeTermineditieren(JFrame frameTermineditieren) {
-        this.frameTermineditieren = frameTermineditieren;
-    }
-	
-	public void setframeStartbildschirm(JFrame frameStartbildschirm) {
-        this.frameStartbildschirm = frameStartbildschirm;
-    }
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//Wenn Button -> View wechesl zu termininfo
 		if (e.getSource() == buttonAbbrechen) {
 			frameTermininformation.setVisible(true);
 			setVisible(false);
 		}
 		
+		//Wenn Button -> View wechsel zu termininfo
 		if (e.getSource() == buttonEditieren) {
 			frameTermininformation.setVisible(true);
 			setVisible(false);
